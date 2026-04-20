@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steriliser Maintenance: Reservoir and Chamber Care</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-dark': '#532A8C',
+                        'brand-muted': '#9D8ABB',
+                        'brand-green': '#7ABF49',
+                        'brand-light-green': '#96BF78',
+                        'brand-bg': '#F2F2F2',
+                        'brand-light-purple': '#C3ACE8'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .fade-in {
+            animation: fadeIn 0.4s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Hotspot animation */
+        .hotspot-pulse {
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.8; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+        .hotspot-btn {
+            transition: all 0.3s ease;
+        }
+        .hotspot-btn.active {
+            background-color: #532A8C; 
+            color: white;
+            border-color: white;
+            transform: scale(1.1);
+            z-index: 20;
+        }
+        .hotspot-btn:not(.active):hover {
+            transform: scale(1.1);
+            background-color: #9D8ABB; 
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-brand-bg text-gray-800 h-screen p-4 md:p-6 antialiased flex flex-col overflow-hidden">
+
+    <div class="w-full h-full mx-auto flex flex-col gap-4 md:gap-6 flex-1 overflow-hidden max-w-7xl">
+        
+        <!-- Compact Header Section -->
+        <header class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:px-6 md:py-4 flex flex-col md:flex-row md:items-center justify-between gap-3 border-t-4 border-t-brand-dark shrink-0">
+            <div class="flex-shrink-0">
+                <h1 class="text-xl md:text-2xl font-bold text-brand-dark mb-1">Steriliser Maintenance Protocols</h1>
+                <div class="inline-block bg-brand-light-purple/20 text-brand-dark px-3 py-1 rounded-full text-xs font-semibold tracking-wide">
+                    Reservoir & Chamber Care
+                </div>
+            </div>
+            <p class="text-gray-600 text-sm leading-relaxed max-w-xl md:text-right">
+                Interact with the benchtop steriliser schematic below to review the critical daily and weekly maintenance requirements for internal components.
+            </p>
+        </header>
+
+        <!-- Main Interactive Workspace -->
+        <main class="flex flex-col lg:flex-row gap-4 md:gap-6 flex-1 overflow-hidden">
+            
+            <!-- Left: Visual Diagram -->
+            <div class="lg:w-1/2 bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-8 flex flex-col relative shrink-0 min-h-[300px] lg:min-h-0 overflow-hidden">
+                <h2 class="text-xs md:text-sm font-bold text-gray-400 uppercase tracking-wider mb-2 md:mb-4 w-full text-left flex-shrink-0">Benchtop Steriliser Schematic</h2>
+                
+                <!-- SVG Diagram Container -->
+                <div class="relative w-full max-w-[500px] aspect-video md:aspect-square mx-auto my-auto">
+                    <!-- Base SVG Graphic -->
+                    <svg viewBox="0 0 400 300" class="w-full h-full drop-shadow-md rounded-lg" style="background-color: #f8fafc;">
+                        <!-- Steriliser Body -->
+                        <rect x="30" y="40" width="340" height="220" rx="15" fill="#cbd5e1" stroke="#94a3b8" stroke-width="3" />
+                        <rect x="35" y="45" width="330" height="210" rx="12" fill="#e2e8f0" />
+                        
+                        <!-- Control Panel (Right) -->
+                        <rect x="290" y="60" width="60" height="180" rx="5" fill="#94a3b8" />
+                        <rect x="295" y="65" width="50" height="50" rx="3" fill="#1e293b" />
+                        <circle cx="320" cy="140" r="8" fill="#cbd5e1" />
+                        <circle cx="320" cy="170" r="8" fill="#cbd5e1" />
+                        <circle cx="320" cy="200" r="8" fill="#cbd5e1" />
+
+                        <!-- Water Reservoir Access (Top Left) -->
+                        <rect x="60" y="30" width="80" height="15" rx="3" fill="#94a3b8" stroke="#64748b" stroke-width="2" />
+                        <path d="M70 30 L130 30" stroke="#f1f5f9" stroke-width="2" />
+
+                        <!-- Chamber Door Seal / Gasket (Outer Ring) -->
+                        <circle cx="160" cy="150" r="85" fill="#64748b" />
+                        
+                        <!-- Internal Chamber (Inner Circle) -->
+                        <circle cx="160" cy="150" r="75" fill="#f8fafc" stroke="#475569" stroke-width="2" />
+                        
+                        <!-- Chamber Trays -->
+                        <rect x="95" y="130" width="130" height="6" rx="2" fill="#cbd5e1" />
+                        <rect x="105" y="165" width="110" height="6" rx="2" fill="#cbd5e1" />
+                        <path d="M120 130 L120 165 M160 130 L160 165 M200 130 L200 165" stroke="#94a3b8" stroke-width="2" opacity="0.5" />
+                    </svg>
+
+                    <!-- Interactive Hotspots (Absolute positioning over SVG) -->
+                    <!-- 1. Water Reservoir -->
+                    <div class="absolute top-[10%] left-[25%] -translate-x-1/2 -translate-y-1/2">
+                        <div class="absolute inset-0 rounded-full bg-brand-dark hotspot-pulse"></div>
+                        <button onclick="selectZone('reservoir')" id="btn-reservoir" class="hotspot-btn relative w-8 h-8 md:w-10 md:h-10 rounded-full bg-white border-2 border-brand-dark text-brand-dark font-bold shadow-lg flex items-center justify-center z-10" aria-label="Reservoir Maintenance">
+                            1
+                        </button>
+                    </div>
+
+                    <!-- 2. Internal Chamber -->
+                    <div class="absolute top-[50%] left-[40%] -translate-x-1/2 -translate-y-1/2">
+                        <div class="absolute inset-0 rounded-full bg-brand-dark hotspot-pulse"></div>
+                        <button onclick="selectZone('chamber')" id="btn-chamber" class="hotspot-btn relative w-8 h-8 md:w-10 md:h-10 rounded-full bg-white border-2 border-brand-dark text-brand-dark font-bold shadow-lg flex items-center justify-center z-10" aria-label="Chamber Maintenance">
+                            2
+                        </button>
+                    </div>
+
+                    <!-- 3. Gasket / Door Seal -->
+                    <div class="absolute top-[50%] left-[20%] -translate-x-1/2 -translate-y-1/2">
+                        <div class="absolute inset-0 rounded-full bg-brand-dark hotspot-pulse"></div>
+                        <button onclick="selectZone('gasket')" id="btn-gasket" class="hotspot-btn relative w-8 h-8 md:w-10 md:h-10 rounded-full bg-white border-2 border-brand-dark text-brand-dark font-bold shadow-lg flex items-center justify-center z-10" aria-label="Gasket Maintenance">
+                            3
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Content Display Panel -->
+            <div class="lg:w-1/2 bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col overflow-y-auto shrink-0 lg:shrink h-full">
+                <div class="p-4 border-b border-gray-100 bg-gray-50 shrink-0">
+                    <h3 class="font-bold text-gray-700">Clinical Rationale Viewer</h3>
+                </div>
+                
+                <div id="content-display" class="p-6 md:p-10 flex-1 flex flex-col justify-center relative">
+                    <!-- Default State -->
+                    <div id="default-state" class="text-center fade-in">
+                        <div class="w-16 h-16 md:w-20 md:h-20 bg-brand-light-purple/20 text-brand-dark rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-bold text-brand-dark mb-4">Select a Component</h3>
+                        <p class="text-gray-600 text-sm md:text-base max-w-md mx-auto">
+                            Click on the numbered markers located on the steriliser schematic to reveal the precise maintenance protocols and clinical rationale for each critical component.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        const zoneData = {
+            'reservoir': {
+                number: 1,
+                title: 'Water Reservoir Management',
+                content: '<p class="mb-3 font-medium">The water reservoir is a frequent site for concealed contamination. Even with Critical Water, stagnant environments promote the proliferation of microorganisms and biofilm on the reservoir walls.</p><ul class="list-disc pl-5 space-y-2 marker:text-brand-muted"><li class="text-gray-800"><strong>Biofilm Risk:</strong> Unmanaged biofilm can aerosolise during the cycle, contaminating the steam and compromising sterility.</li><li class="text-gray-800"><strong>Routine Maintenance:</strong> Reservoirs must be drained and thoroughly wiped down with a lint-free cloth according to the Manufacturer’s Instructions for Use (MIFU).</li><li class="text-gray-800"><strong>Strict Prohibition:</strong> Never "top up" a reservoir exhibiting visible sediment or slime; it mandates complete drainage and rigorous cleaning.</li></ul>'
+            },
+            'chamber': {
+                number: 2,
+                title: 'Internal Chamber Integrity',
+                content: '<p class="mb-3 font-medium">The integrity of the sterilisation cycle relies heavily on the physical condition of the internal stainless-steel chamber.</p><ul class="list-disc pl-5 space-y-2 marker:text-brand-muted"><li class="text-gray-800"><strong>Daily Cleaning:</strong> The chamber must be meticulously wiped down daily using a damp, lint-free cloth.</li><li class="text-gray-800"><strong>Debris Removal:</strong> This intervention removes microscopic debris, chemical residues, and mineral deposits accumulated over multiple cycles.</li><li class="text-gray-800"><strong>Preventative Care:</strong> Eliminating debris prevents long-term chemical "pitting" and irreversible degradation, ensuring optimal thermal conductivity and performance.</li></ul>'
+            },
+            'gasket': {
+                number: 3,
+                title: 'Door Seal (Gasket) Care',
+                content: '<p class="mb-3 font-medium">The door seal (gasket) is fundamental to the steriliser’s ability to draw and maintain a pressurised environment.</p><ul class="list-disc pl-5 space-y-2 marker:text-brand-muted"><li class="text-gray-800"><strong>Daily Maintenance:</strong> The rubber or silicone seal must be wiped clean daily with a damp, lint-free cloth.</li><li class="text-gray-800"><strong>Obstruction Prevention:</strong> Removing residual lint and particulate matter prevents the formation of micro-gaps.</li><li class="text-gray-800"><strong>Vacuum Integrity:</strong> Even the smallest obstruction can prevent a critical vacuum, leading to cycle failures, aborted runs, and the escape of high-pressure steam.</li></ul>'
+            }
+        };
+
+        function selectZone(zoneId) {
+            // Remove active class from all buttons
+            document.querySelectorAll('.hotspot-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            const activeBtn = document.getElementById(`btn-${zoneId}`);
+            if(activeBtn) activeBtn.classList.add('active');
+
+            // Fetch data
+            const data = zoneData[zoneId];
+            const displayArea = document.getElementById('content-display');
+
+            // Create new content with animation trigger
+            const newContent = `
+                <div class="fade-in max-w-2xl mx-auto w-full">
+                    <div class="flex items-center gap-3 mb-4 pb-4 border-b border-gray-100">
+                        <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-brand-dark text-white flex items-center justify-center text-base md:text-lg font-bold flex-shrink-0 shadow-md">
+                            ${data.number}
+                        </div>
+                        <h2 class="text-lg md:text-2xl font-bold text-brand-dark leading-tight">${data.title}</h2>
+                    </div>
+                    
+                    <div class="bg-brand-bg/50 border-l-4 border-brand-green p-4 md:p-6 rounded-r-lg">
+                        <div class="text-gray-800 text-sm md:text-base leading-relaxed">
+                            ${data.content}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Clear current and insert new
+            displayArea.innerHTML = '';
+            
+            // Small timeout ensures the DOM registers the change so the CSS animation fires properly
+            setTimeout(() => {
+                displayArea.innerHTML = newContent;
+            }, 10);
+        }
+    </script>
+</body>
+</html>

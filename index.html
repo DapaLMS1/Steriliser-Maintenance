@@ -57,9 +57,9 @@
         }
     </style>
 </head>
-<body class="bg-brand-bg text-gray-800 h-screen p-4 md:p-6 antialiased flex flex-col overflow-hidden">
+<body class="bg-brand-bg text-gray-800 min-h-screen p-4 md:p-6 antialiased flex flex-col">
 
-    <div class="w-full h-full mx-auto flex flex-col gap-4 md:gap-6 flex-1 overflow-hidden max-w-7xl">
+    <div class="w-full mx-auto flex flex-col gap-4 md:gap-6 flex-1 max-w-7xl">
         
         <!-- Compact Header Section -->
         <header class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:px-6 md:py-4 flex flex-col md:flex-row md:items-center justify-between gap-3 border-t-4 border-t-brand-dark shrink-0">
@@ -75,14 +75,14 @@
         </header>
 
         <!-- Main Interactive Workspace -->
-        <main class="flex flex-col lg:flex-row gap-4 md:gap-6 flex-1 overflow-hidden">
+        <main class="flex flex-col md:flex-row gap-4 md:gap-6 flex-1">
             
             <!-- Left: Visual Diagram -->
-            <div class="lg:w-1/2 bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-8 flex flex-col relative shrink-0 min-h-[300px] lg:min-h-0 overflow-hidden">
+            <div class="md:w-1/2 bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-8 flex flex-col relative shrink-0 min-h-[300px] md:min-h-0">
                 <h2 class="text-xs md:text-sm font-bold text-gray-400 uppercase tracking-wider mb-2 md:mb-4 w-full text-left flex-shrink-0">Benchtop Steriliser Schematic</h2>
                 
                 <!-- SVG Diagram Container -->
-                <div class="relative w-full max-w-[500px] aspect-video md:aspect-square mx-auto my-auto">
+                <div class="relative w-full max-w-[500px] aspect-[4/3] mx-auto my-auto">
                     <!-- Base SVG Graphic -->
                     <svg viewBox="0 0 400 300" class="w-full h-full drop-shadow-md rounded-lg" style="background-color: #f8fafc;">
                         <!-- Steriliser Body -->
@@ -140,8 +140,8 @@
             </div>
 
             <!-- Right: Content Display Panel -->
-            <div class="lg:w-1/2 bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col overflow-y-auto shrink-0 lg:shrink h-full">
-                <div class="p-4 border-b border-gray-100 bg-gray-50 shrink-0">
+            <div class="md:w-1/2 bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col shrink-0 md:shrink h-full min-h-[300px]">
+                <div class="p-4 border-b border-gray-100 bg-gray-50 shrink-0 rounded-t-xl">
                     <h3 class="font-bold text-gray-700">Clinical Rationale Viewer</h3>
                 </div>
                 
@@ -172,7 +172,7 @@
             'chamber': {
                 number: 2,
                 title: 'Internal Chamber Integrity',
-                content: '<p class="mb-3 font-medium">The integrity of the sterilisation cycle relies heavily on the physical condition of the internal stainless-steel chamber.</p><ul class="list-disc pl-5 space-y-2 marker:text-brand-muted"><li class="text-gray-800"><strong>Daily Cleaning:</strong> The chamber must be meticulously wiped down daily using a damp, lint-free cloth.</li><li class="text-gray-800"><strong>Debris Removal:</strong> This intervention removes microscopic debris, chemical residues, and mineral deposits accumulated over multiple cycles.</li><li class="text-gray-800"><strong>Preventative Care:</strong> Eliminating debris prevents long-term chemical "pitting" and irreversible degradation, ensuring optimal thermal conductivity and performance.</li></ul>'
+                content: '<p class="mb-3 font-medium">The integrity of the sterilisation cycle relies heavily on the physical condition of the internal stainless-steel chamber and its accessories.</p><ul class="list-disc pl-5 space-y-2 marker:text-brand-muted"><li class="text-gray-800"><strong>Daily Cleaning:</strong> The chamber must be meticulously wiped down daily using a damp, lint-free cloth.</li><li class="text-gray-800"><strong>Chamber Furniture:</strong> The trays and racks should be cleaned routinely with detergent and water, rinsed, and dried to remove any calcification and prevent pitting.</li><li class="text-gray-800"><strong>Debris Removal:</strong> This intervention removes microscopic debris, chemical residues, and mineral deposits accumulated over multiple cycles.</li><li class="text-gray-800"><strong>Preventative Care:</strong> Eliminating debris and calcification prevents long-term chemical "pitting" and irreversible degradation, ensuring optimal thermal conductivity and performance.</li></ul>'
             },
             'gasket': {
                 number: 3,
@@ -219,6 +219,11 @@
             // Small timeout ensures the DOM registers the change so the CSS animation fires properly
             setTimeout(() => {
                 displayArea.innerHTML = newContent;
+                
+                // On mobile/very small screens, scroll down to the content area automatically when clicked
+                if (window.innerWidth < 768) {
+                    displayArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
             }, 10);
         }
     </script>
